@@ -25,9 +25,11 @@ Client site can be viewed here: [Real Time client](https://waleedclient.azureweb
 # **Technology used**
 
 **apigee**
+
 apigee is an API management tool which we can use to monitor traffic for all the requests coming in before it is send to our backend services. 
 
 **Signal R**
+
 Today's modern apps are expected to deliver up-to-date information without hitting a refresh button. Add real-time functionality to our dashboards, maps, games and chat rooms and many more.
 Real-time functionality is the ability to have your server-side code push content to connected clients as it happens, in real-time.
 
