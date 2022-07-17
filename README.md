@@ -19,5 +19,8 @@ Having a full picture of the problem and shortfalls of existing solutions will p
 As part of this project, you may need to create a proof of concept, refactor, or rewrite the integration or application to apply your solution above to this application.  
 
 
+**Proof of Concept**
+
+![image-20220111-151124](https://user-images.githubusercontent.com/76840465/179399239-0f86dbb4-b942-4b01-a0a4-925030aabe7d.png)
 
 
