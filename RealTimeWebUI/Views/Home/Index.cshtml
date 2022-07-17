@@ -1,0 +1,162 @@
+﻿@model IEnumerable<RealTimeWebUI.Model.MaterialViewModel>
+
+
+
+
+@{
+    ViewBag.Title = "RealTime PoC";
+    string[] TableHeaders = new String[]
+    {
+        
+        "Material Number",
+        "Material Y Flag",
+        "Material Description"
+
+                    };
+
+
+}
+
+@section scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <!--<script src="http://localhost:44305/signalr/hubs"></script>-->
+    <!--Add script to update the page and send messages.-->
+    <script type="text/javascript">
+
+        
+        // connect to the signalR server
+        var connection = new signalR.HubConnectionBuilder().withUrl('@(ViewBag.BaseURL)/notify').build();
+
+
+        // subscribe to the metho broadcastMessage
+        connection.on("BroadcastMessage", function (id, mnumber, Yflag, mdescritpion) {
+
+            console.log(id + ' ' + mnumber + ' ' + Yflag + ' ' + mdescritpion);
+
+            var materialId = id;
+            var materialNumber = mnumber;
+            var materialYFlag = Yflag;
+            var materialDescription = mdescritpion;
+
+            if ($('#' + materialId).length === 0) {
+
+                // add a new row with the value
+                var newrow = "  <tr id = '" + materialId + "'> <td class= 'materialnumber' > " + materialNumber + "</td> <td class= 'changeInYflag' > " + materialYFlag + "</td>  <td class='materialitem'>" + materialDescription+ "</td></tr>";
+
+                //var newrow = "<tr id = '" + materialId + "'> <td class= 'materialnumber' > " + materialNumber + "</td> <td class= 'changeInYflag' > " + materialYFlag + "</td>  <td></td></tr> ";
+
+
+                $("table").append(newrow);
+
+            }
+            else {
+
+                // change y flag for that material id
+                $('.changeInYflag', '#' + materialId).text(materialYFlag).fadeIn(1000).animate({ backgroundColor: "#ffb3b3" }, 'slow').fadeTo("slow", 0.9);
+            }
+
+            //Change material for that material id
+            $('.materialitem', '#' + materialId + ' ').text(materialDescription);
+
+
+        });
+
+
+
+        // subscribing to recive any material description
+        connection.on("BroadcastMaterialItem", function (id, item) {
+
+            var materialID = id;
+            var materialDescription = item;
+
+            console.log("The material items are " + materialID + " " + materialDescription);
+
+            // adding the material Descripion for that ID
+            $('.materialitem', '#' + materialID + ' ').text(materialDescription).css("background-color", "#78f990");
+
+        });
+
+
+
+        // starting up the connection
+        connection.start().then(function () {
+
+            console.log("connection Started successfully" + ' ' + connection.id);
+        })
+            .catch(function (err) {
+
+                return console.error("There was an error opening the connection: " + err.toString());
+            });
+
+    </script>
+
+
+}
+
+
+
+<!-- Material --->
+<div id="myTable" class="table">
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th> @head</th>
+                    }
+                }
+            </tr>
+        </thead>
+        @{
+            if (Model != null)
+            {
+                foreach (var Data in Model)
+                {
+                <tr id="@Data.mId">
+                    @*<td>
+                        @Data.mId
+                    </td>*@
+
+                    <td class="materialnumber">  @Data.materialNumber</td>
+                    <td class="changeInYflag">  @Data.materialYFlag</td>
+
+
+                    <td class="materialitem">
+
+                       
+                            @Data.materialItems?.materialDescription
+                        
+                    </td>
+                </tr>
+                }
+
+            }
+        }
+
+
+        <tbody id="tableBody">
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
