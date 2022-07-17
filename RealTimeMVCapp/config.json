@@ -1,0 +1,17 @@
+{
+  "ConnectionStrings": {
+    "RealTimeContextDb": "Data Source=(localdb)\\ProjectsV13;Initial Catalog=RealTimeDb;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=true;"
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Material": "Warning"
+    }
+  },
+
+  "scripts": {
+    "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
+  }
+
+}
