@@ -2,13 +2,12 @@
 
 **Current Situation** 
 
-There is a customer-facing application called myapetito which gets some of its data from SAP. This data is collected twice a day at 8pm and 2am from SAP and exported to a separate database. This means that data our customers see can often be out of date. This causes problems for them and has the knock-on effect of causing operational challenges for our teams in Portbury, both in customer services and distribution 
-
+There is a customer-facing application which gets some of its data from ERP. This data is collected twice a day and exported to a separate database. This means that data some customers see can often be out of date. This causes problems for them and has the knock-on effect of causing operational challenges for our teams, in customer service 
  
 
 **Solution Designed**  
 
-Using the technologies I have designed a proof of concept which **get data out of SAP as changes are made, in real time**, where customers always see the same data as our internal SAP users.
+Using the technologies I have designed a proof of concept which **gets data out of SAP as changes are made, in real time**, where customers always see the same data as our internal SAP users.
 
 
 # **Pre Requsites**
